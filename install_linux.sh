@@ -222,6 +222,8 @@ if [ -n "$cleared_cache" ]; then
 	echo "***********************"
 	echo "we are here"
 	docker context create ecs --help
+	echo "here again"
+	echo is_new_cli
 	if [ $(is_new_cli "docker") -eq 0 ]; then
 		echo "why?"
 		echo $(is_new_cli "docker")
