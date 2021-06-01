@@ -173,6 +173,8 @@ echo "Downloading CLI..."
 
 # Download CLI to temporary directory
 download_dir=$($sh_c 'mktemp -d')
+echo "${download_dir}"
+echo "${DOWNLOAD_URL}"
 $sh_c "${download_cmd} ${download_dir}/docker ${DOWNLOAD_URL}"
 
 echo "Downloaded CLI!"
