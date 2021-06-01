@@ -221,6 +221,12 @@ if [ -n "$cleared_cache" ]; then
 	# Check Compose CLI is working
 	echo "***********************"
 	echo "we are here"
+	echo "we are here"
+	echo "we are here"
+	echo "we are here"
+	echo "we are here"
+	echo "we are here"
+	echo "what is line 224"
 	if [ $(is_new_cli "docker") -eq 0 ]; then
 		echo "why?"
 		echo $(is_new_cli "docker")
