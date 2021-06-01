@@ -207,10 +207,10 @@ if [ -n "$DRY_RUN" ]; then
 	exit 0
 fi
 
-echo "***********************"
-echo "***********************"
-echo "***********************"
-docker context ecs create --help
+echo ***********************
+echo ***********************
+echo ***********************
+RUN docker context ecs create --help
 
 if [ -n "$cleared_cache" ]; then
 	# Check Compose CLI is working
