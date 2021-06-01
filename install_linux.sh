@@ -229,6 +229,10 @@ if [ -n "$cleared_cache" ]; then
 	echo "what is line 224"
 	if [ $(is_new_cli "docker") -eq 0 ]; then
 		echo "why?"
+		docker --verion
+		docker context --help
+		docker context create --help
+		docker context create ecs --help
 		echo $(is_new_cli "docker")
 		echo "Error: Docker Compose CLI installation error"
 		exit 1
