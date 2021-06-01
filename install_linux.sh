@@ -106,6 +106,8 @@ if ! [ "$(command -v curl)" ]; then
 	exit 1
 fi
 
+echo "what is uname -m"
+echo "$(uname -m)"
 if [ "$(uname -m)" = "aarch64" ]; then
 	echo "first option"
 	DOWNLOAD_URL=${DOWNLOAD_URL:-$(curl -s ${RELEASE_URL} | grep "browser_download_url.*docker-linux-arm64" | cut -d : -f 2,3)}
