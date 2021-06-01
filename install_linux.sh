@@ -207,15 +207,15 @@ if [ -n "$DRY_RUN" ]; then
 	exit 0
 fi
 
-echo ***********************
-echo ***********************
-echo ***********************
-RUN docker context ecs create --help
 
 if [ -n "$cleared_cache" ]; then
 	# Check Compose CLI is working
+	echo "***********************"
 	echo "we are here"
+	docker context ecs create --help
 	if [ $(is_new_cli "docker") -eq 0 ]; then
+		echo "why?"
+		echo $(is_new_cli "docker")
 		echo "Error: Docker Compose CLI installation error"
 		exit 1
 	fi
