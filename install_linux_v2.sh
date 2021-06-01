@@ -107,9 +107,13 @@ if ! [ "$(command -v curl)" ]; then
 fi
 
 if [ "$(uname -m)" = "aarch64" ]; then
+	echo "option is aarch64"
 	DOWNLOAD_URL=${DOWNLOAD_URL:-$(curl -s ${RELEASE_URL} | grep "browser_download_url.*docker-linux-arm64.tar.gz" | cut -d : -f 2,3)}
+	echo "DOWNLOAD_URL is ${DOWNLOAD_URL}"
 else
+	echo "option is $(uname -m)"
 	DOWNLOAD_URL=${DOWNLOAD_URL:-$(curl -s ${RELEASE_URL} | grep "browser_download_url.*docker-linux-amd64.tar.gz" | cut -d : -f 2,3)}
+	echo "DOWNLOAD_URL is ${DOWNLOAD_URL}"
 fi
 
 # Check if the Compose CLI is already installed
