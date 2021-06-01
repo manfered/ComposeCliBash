@@ -181,9 +181,12 @@ echo "Downloaded CLI!"
 echo "Installing CLI..."
 
 # Link existing Docker CLI
+echo "${existing_cli_path}"
+echo "${link_path}"
 $sudo_sh_c "ln -s ${existing_cli_path} ${link_path}"
 
 # Install downloaded CLI
+echo "${download_dir}"
 $sudo_sh_c "install -m 775 ${download_dir}/docker /usr/local/bin/docker"
 
 # Clear cache
@@ -203,6 +206,7 @@ fi
 
 if [ -n "$cleared_cache" ]; then
 	# Check Compose CLI is working
+	echo "we are here"
 	if [ $(is_new_cli "docker") -eq 0 ]; then
 		echo "Error: Docker Compose CLI installation error"
 		exit 1
