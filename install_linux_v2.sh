@@ -174,10 +174,10 @@ echo "Checks passed!"
 echo "Downloading CLI..."
 
 # Download CLI to temporary directory
+download_dir=$($sh_c 'mktemp -d')
 echo "${download_cmd}"
 echo "${download_dir}"
 echo "${DOWNLOAD_URL}"
-download_dir=$($sh_c 'mktemp -d')
 $sh_c "${download_cmd} ${download_dir}/docker-compose-cli.tar.gz ${DOWNLOAD_URL}"
 $sh_c "tar xzf ${download_dir}/docker-compose-cli.tar.gz -C ${download_dir} --strip-components 1"
 
