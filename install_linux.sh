@@ -189,13 +189,13 @@ echo "Installing CLI..."
 echo "${existing_cli_path}"
 echo "${link_path}"
 echo "${sudo_sh_c}"
-resultln1 = $sudo_sh_c "ln -s ${existing_cli_path} ${link_path}"
-echo "${resultln1}"
+$sudo_sh_c "ln -s ${existing_cli_path} ${link_path}"
+echo "link passed"
 
 # Install downloaded CLI
 echo "${download_dir}"
-resultinstall1 = $sudo_sh_c "install -m 775 ${download_dir}/docker /usr/local/bin/docker"
-echo "${resultinstall1}"
+$sudo_sh_c "install -m 775 ${download_dir}/docker /usr/local/bin/docker"
+echo "install passed"
 
 # Clear cache
 cleared_cache=1
