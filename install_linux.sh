@@ -212,7 +212,7 @@ if [ -n "$cleared_cache" ]; then
 	# Check Compose CLI is working
 	echo "***********************"
 	echo "we are here"
-	docker context ecs create --help
+	docker context create ecs --help
 	if [ $(is_new_cli "docker") -eq 0 ]; then
 		echo "why?"
 		echo $(is_new_cli "docker")
