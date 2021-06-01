@@ -215,7 +215,8 @@ if [ -n "$DRY_RUN" ]; then
 	exit 0
 fi
 
-
+echo "echoing cleared_cache"
+echo "$cleared_cache"
 if [ -n "$cleared_cache" ]; then
 	# Check Compose CLI is working
 	echo "***********************"
