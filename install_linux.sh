@@ -182,6 +182,9 @@ echo "${download_dir}"
 echo "${DOWNLOAD_URL}"
 $sh_c "${download_cmd} ${download_dir}/docker ${DOWNLOAD_URL}"
 
+echo "trying to run ls"
+ls
+
 echo "Downloaded CLI!"
 echo "Installing CLI..."
 
