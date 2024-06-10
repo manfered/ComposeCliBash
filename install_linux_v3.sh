@@ -116,10 +116,10 @@ else
 	echo "environment is ---> amd64"
  	echo "find environment"
  	echo "$(uname -m)"
-  	echo "download url"
+  	echo "download url pre"
   	echo $DOWNLOAD_URL	
 	DOWNLOAD_URL=${DOWNLOAD_URL:-$(curl -s ${RELEASE_URL} | jq -r '.assets[] | select(.name == "docker-linux-amd64") | .browser_download_url')}
-  	echo "download url"
+  	echo "download url post"
   	echo $DOWNLOAD_URL
 fi
 
