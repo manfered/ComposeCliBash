@@ -114,6 +114,7 @@ elif [ "$(uname -m)" = "s390x" ]; then
 	DOWNLOAD_URL=${DOWNLOAD_URL:-$(curl -s ${RELEASE_URL} | grep "browser_download_url.*docker-linux-s390x" | cut -d : -f 2,3)}
 else
 	echo "environment is ---> amd64"
+ 	echo "environment is ---> $(uname -m)"
 	DOWNLOAD_URL=${DOWNLOAD_URL:-$(curl -s ${RELEASE_URL} | grep "browser_download_url.*docker-linux-amd64" | cut -d : -f 2,3)}
 fi
 
