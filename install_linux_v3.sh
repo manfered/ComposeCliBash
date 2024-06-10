@@ -116,7 +116,11 @@ else
 	echo "environment is ---> amd64"
  	echo "find environment"
  	echo "$(uname -m)"
+  	echo "download url"
+  	echo $DOWNLOAD_URL	
 	DOWNLOAD_URL=${DOWNLOAD_URL:-$(curl -s ${RELEASE_URL} | grep "browser_download_url.*docker-linux-amd64" | cut -d : -f 2,3)}
+  	echo "download url"
+  	echo $DOWNLOAD_URL
 fi
 
 # Check if the Compose CLI is already installed
