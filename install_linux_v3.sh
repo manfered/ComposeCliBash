@@ -118,7 +118,7 @@ else
  	echo "$(uname -m)"
   	echo "download url"
   	echo $DOWNLOAD_URL	
-	DOWNLOAD_URL=${DOWNLOAD_URL:-$(curl -s ${RELEASE_URL} | grep "browser_download_url.*docker-linux-amd64" | cut -d : -f 2,3)}
+	DOWNLOAD_URL=${DOWNLOAD_URL:-$(curl -s ${RELEASE_URL} | jq -r '.assets[] | select(.name == "docker-linux-amd64") | .browser_download_url')}
   	echo "download url"
   	echo $DOWNLOAD_URL
 fi
