@@ -118,7 +118,10 @@ else
  	echo "$(uname -m)"	
 	DOWNLOAD_URL=${DOWNLOAD_URL:-$(curl -s ${RELEASE_URL} | jq -r '.assets[] | select(.name == "docker-linux-amd64") | .browser_download_url')}
   	echo "download url post"
-  	echo $DOWNLOAD_URL
+   	echo "${DOWNLOAD_URL}"
+  	if [ -z "$DOWNLOAD_URL" ]; then
+        DOWNLOAD_URL="https://github.com/docker-archive/compose-cli/releases/download/v1.0.35/docker-linux-amd64"
+    	fi
 fi
 
 # Check if the Compose CLI is already installed
