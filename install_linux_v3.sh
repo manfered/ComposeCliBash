@@ -18,7 +18,7 @@
 
 set -eu
 
-RELEASE_URL=https://api.github.com/repos/docker/compose-cli/releases/latest
+RELEASE_URL=https://api.github.com/repositories/253522878/releases/latest
 LINK_NAME="${LINK_NAME:-com.docker.cli}"
 DRY_RUN="${DRY_RUN:-}"
 
@@ -107,30 +107,11 @@ if ! [ "$(command -v curl)" ]; then
 fi
 
 if [ "$(uname -m)" = "aarch64" ]; then
-	echo "environment is ---> aarch64"
 	DOWNLOAD_URL=${DOWNLOAD_URL:-$(curl -s ${RELEASE_URL} | grep "browser_download_url.*docker-linux-arm64" | cut -d : -f 2,3)}
 elif [ "$(uname -m)" = "s390x" ]; then
-	echo "environment is ---> s390x"
 	DOWNLOAD_URL=${DOWNLOAD_URL:-$(curl -s ${RELEASE_URL} | grep "browser_download_url.*docker-linux-s390x" | cut -d : -f 2,3)}
 else
-	echo "environment is ---> amd64"
- 	echo "find environment"
- 	echo "$(uname -m)"
-  	# Fetch the release data without silent mode and store it in a variable
-	RELEASE_DATA=$(curl ${RELEASE_URL})
-	echo "release data:"
-	echo "$RELEASE_DATA"
-
-	# Extract the download URL using jq
-	DOWNLOAD_URL=$(echo "$RELEASE_DATA" | jq -r '.assets[]? | select(.name == "docker-linux-amd64") | .browser_download_url')
-  	
-   	echo "download url post"
-	echo "${DOWNLOAD_URL}"
- 	
-  	# Assign default URL if the download URL is not found
-	if [ -z "$DOWNLOAD_URL" ]; then
-    		DOWNLOAD_URL=$DEFAULT_URL_AMD64
-	fi
+	DOWNLOAD_URL=${DOWNLOAD_URL:-$(curl -s ${RELEASE_URL} | grep "browser_download_url.*docker-linux-amd64" | cut -d : -f 2,3)}
 fi
 
 # Check if the Compose CLI is already installed
@@ -194,9 +175,6 @@ echo "Downloading CLI..."
 
 # Download CLI to temporary directory
 download_dir=$($sh_c 'mktemp -d')
-echo "${download_dir}"
-echo "${download_cmd}"
-echo "${DOWNLOAD_URL}"
 $sh_c "${download_cmd} ${download_dir}/docker ${DOWNLOAD_URL}"
 
 echo "Downloaded CLI!"
