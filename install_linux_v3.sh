@@ -115,13 +115,22 @@ elif [ "$(uname -m)" = "s390x" ]; then
 else
 	echo "environment is ---> amd64"
  	echo "find environment"
- 	echo "$(uname -m)"	
-	DOWNLOAD_URL=$(curl -s ${RELEASE_URL} | jq -r '.assets[]? | select(.name == "docker-linux-amd64") | .browser_download_url')
-  	echo "download url post"
-   	echo "${DOWNLOAD_URL}"
-  	if [ -z "$DOWNLOAD_URL" ]; then
-        DOWNLOAD_URL="https://github.com/docker-archive/compose-cli/releases/download/v1.0.35/docker-linux-amd64"
-    	fi
+ 	echo "$(uname -m)"
+  	# Fetch the release data without silent mode and store it in a variable
+	RELEASE_DATA=$(curl ${RELEASE_URL})
+	echo "release data:"
+	echo "$RELEASE_DATA"
+
+	# Extract the download URL using jq
+	DOWNLOAD_URL=$(echo "$RELEASE_DATA" | jq -r '.assets[]? | select(.name == "docker-linux-amd64") | .browser_download_url')
+  	
+   	echo "download url post"
+	echo "${DOWNLOAD_URL}"
+ 	
+  	# Assign default URL if the download URL is not found
+	if [ -z "$DOWNLOAD_URL" ]; then
+    		DOWNLOAD_URL=$DEFAULT_URL_AMD64
+	fi
 fi
 
 # Check if the Compose CLI is already installed
