@@ -106,16 +106,13 @@ if ! [ "$(command -v curl)" ]; then
 	exit 1
 fi
 
-echo "what is uname -m"
-echo "$(uname -m)"
 if [ "$(uname -m)" = "aarch64" ]; then
-	echo "first option"
 	DOWNLOAD_URL=${DOWNLOAD_URL:-$(curl -s ${RELEASE_URL} | grep "browser_download_url.*docker-linux-arm64" | cut -d : -f 2,3)}
+elif [ "$(uname -m)" = "s390x" ]; then
+	DOWNLOAD_URL=${DOWNLOAD_URL:-$(curl -s ${RELEASE_URL} | grep "browser_download_url.*docker-linux-s390x" | cut -d : -f 2,3)}
 else
-	echo "second option"
 	DOWNLOAD_URL=${DOWNLOAD_URL:-$(curl -s ${RELEASE_URL} | grep "browser_download_url.*docker-linux-amd64" | cut -d : -f 2,3)}
 fi
-echo "${DOWNLOAD_URL}"
 
 # Check if the Compose CLI is already installed
 if [ $(is_new_cli "docker") -eq 1 ]; then
@@ -178,27 +175,16 @@ echo "Downloading CLI..."
 
 # Download CLI to temporary directory
 download_dir=$($sh_c 'mktemp -d')
-echo "${download_dir}"
-echo "${DOWNLOAD_URL}"
 $sh_c "${download_cmd} ${download_dir}/docker ${DOWNLOAD_URL}"
-
-echo "trying to run ls"
-ls
 
 echo "Downloaded CLI!"
 echo "Installing CLI..."
 
 # Link existing Docker CLI
-echo "${existing_cli_path}"
-echo "${link_path}"
-echo "${sudo_sh_c}"
 $sudo_sh_c "ln -s ${existing_cli_path} ${link_path}"
-echo "link passed"
 
 # Install downloaded CLI
-echo "${download_dir}"
 $sudo_sh_c "install -m 775 ${download_dir}/docker /usr/local/bin/docker"
-echo "install passed"
 
 # Clear cache
 cleared_cache=1
@@ -215,25 +201,9 @@ if [ -n "$DRY_RUN" ]; then
 	exit 0
 fi
 
-echo "echoing cleared_cache"
-echo "$cleared_cache"
 if [ -n "$cleared_cache" ]; then
 	# Check Compose CLI is working
-	echo "***********************"
-	echo "we are here"
-	echo "we are here"
-	echo "we are here"
-	echo "we are here"
-	echo "we are here"
-	echo "we are here"
-	echo "what is line 224"
 	if [ $(is_new_cli "docker") -eq 0 ]; then
-		echo "why?"
-		docker --verion
-		docker context --help
-		docker context create --help
-		docker context create ecs --help
-		echo $(is_new_cli "docker")
 		echo "Error: Docker Compose CLI installation error"
 		exit 1
 	fi
