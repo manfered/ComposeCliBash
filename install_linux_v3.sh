@@ -116,7 +116,7 @@ else
 	echo "environment is ---> amd64"
  	echo "find environment"
  	echo "$(uname -m)"	
-	DOWNLOAD_URL=${DOWNLOAD_URL:-$(curl -s ${RELEASE_URL} | jq -r '.assets[] | select(.name == "docker-linux-amd64") | .browser_download_url')}
+	DOWNLOAD_URL=$(curl -s ${RELEASE_URL} | jq -r '.assets[]? | select(.name == "docker-linux-amd64") | .browser_download_url')
   	echo "download url post"
    	echo "${DOWNLOAD_URL}"
   	if [ -z "$DOWNLOAD_URL" ]; then
